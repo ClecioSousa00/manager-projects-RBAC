@@ -1,0 +1,17 @@
+import { Entity } from "../shared/entities/entity.ts";
+import type { UniqueEntityId } from "../shared/entities/unique-entity-id.ts";
+
+type UserProps = {
+  email: string;
+  password: string;
+  username: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+export class User extends Entity<UserProps> {
+  static create(props: UserProps, id?: UniqueEntityId) {
+    const user = new User(props, id);
+    return user;
+  }
+}
