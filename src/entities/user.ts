@@ -14,4 +14,8 @@ export class User extends Entity<UserProps> {
     const user = new User(props, id);
     return user;
   }
+
+  get email(){
+    return this.props.email
+  }
 }
