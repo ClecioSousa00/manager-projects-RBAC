@@ -1,7 +1,7 @@
 import { Entity } from "../shared/entities/entity.ts";
 import type { UniqueEntityId } from "../shared/entities/unique-entity-id.ts";
 
-type UserProps = {
+export type UserProps = {
   email: string;
   password: string;
   username: string;
@@ -15,7 +15,11 @@ export class User extends Entity<UserProps> {
     return user;
   }
 
-  get email(){
-    return this.props.email
+  get email() {
+    return this.props.email;
+  }
+
+  get password() {
+    return this.props.password;
   }
 }

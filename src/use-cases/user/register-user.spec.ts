@@ -1,14 +1,20 @@
 import { UserAlreadyExistsError } from "@/shared/errors/user-already-exists-error.ts";
+import { MockBcrypt } from "@/test/cryptography/mock-bcrypt.ts";
 import { InMemoryUserRepository } from "../../test/in-memory-repositories/in-memory-user-repository.ts";
 import { RegisterUserUseCase } from "./register-user.ts";
 
 let inMemoryUserRepository: InMemoryUserRepository;
+let mockBcrypt: MockBcrypt;
 let registerUserUseCase: RegisterUserUseCase;
 
 describe("Register User (Use Case)", () => {
   beforeEach(() => {
     inMemoryUserRepository = new InMemoryUserRepository();
-    registerUserUseCase = new RegisterUserUseCase(inMemoryUserRepository);
+    mockBcrypt = new MockBcrypt();
+    registerUserUseCase = new RegisterUserUseCase(
+      inMemoryUserRepository,
+      mockBcrypt
+    );
   });
   it("Should create new user", async () => {
     const { id } = await registerUserUseCase.execute({
