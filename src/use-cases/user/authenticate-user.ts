@@ -1,7 +1,7 @@
 import type { UserRepository } from "@/repositories/user-repository.ts";
 import type { ICrypto } from "@/shared/cryptography/crypto-interface.ts";
 import { InvalidCredentialsError } from "@/shared/errors/invalid-credentials-error.ts";
-import { NotFoundError } from "@/shared/errors/not-foud-error.ts";
+import { NotFoundError } from "@/shared/errors/not-found-error.ts";
 
 type InputDto = {
   email: string;
