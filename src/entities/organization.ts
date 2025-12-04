@@ -17,4 +17,17 @@ export class Organization extends Entity<OrganizationProps> {
   get name() {
     return this.props.name;
   }
+
+  get userId() {
+    return this.props.userId;
+  }
+
+  changeName(name: string) {
+    this.props.name = name;
+    this.markAsUpdated();
+  }
+
+  markAsUpdated() {
+    this.props.updatedAt = new Date();
+  }
 }
