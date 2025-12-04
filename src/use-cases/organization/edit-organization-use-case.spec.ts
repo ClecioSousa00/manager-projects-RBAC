@@ -1,3 +1,4 @@
+import { PermissionDeniedError } from "@/shared/errors/permission-denied-error.ts";
 import { makeOrganization } from "@/test/factories/make-organization.ts";
 import { makeUser } from "@/test/factories/make-user.ts";
 import { InMemoryOrganizationRepository } from "@/test/in-memory-repositories/in-memory-organization-repository.ts";
@@ -34,5 +35,19 @@ describe("Edit Organization (Use Case)", () => {
         name: "new organization",
       })
     );
+  });
+
+  it("Should not be able to edit a organization if difference user", async () => {
+    const organization = makeOrganization();
+    inMemoryOrganizationRepository.items.push(organization);
+    const organizationId = organization.id.toString();
+
+    await expect(() =>
+      editOrganizationUseCase.execute({
+        name: "new organization",
+        organizationId,
+        userId: "fake-user-id",
+      })
+    ).rejects.toBeInstanceOf(PermissionDeniedError);
   });
 });
