@@ -15,6 +15,9 @@
       "style": {
         "noParameterProperties": "off",
         "useReadonlyClassProperties": "off"
+      },
+      "complexity": {
+        "noBannedTypes": "off"
       }
     }
   }

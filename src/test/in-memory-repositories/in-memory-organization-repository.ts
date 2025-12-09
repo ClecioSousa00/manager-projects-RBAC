@@ -22,4 +22,10 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
       this.items[index] = organization;
     }
   }
+
+  async delete(id: string): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id.toString() === id);
+
+    this.items.splice(itemIndex, 1);
+  }
 }
