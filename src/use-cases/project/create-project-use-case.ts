@@ -1,5 +1,5 @@
-import { Organization } from "@/entities/organization.ts";
-import type { OrganizationRepository } from "@/repositories/organization-repository.ts";
+import { Project } from "@/entities/project.ts";
+import type { ProjectRepository } from "@/repositories/project-repository.ts";
 import type { UserRepository } from "@/repositories/user-repository.ts";
 import { NotFoundError } from "@/shared/errors/not-found-error.ts";
 
@@ -12,10 +12,10 @@ type OutputDto = {
   id: string;
 };
 
-export class CreateOrganizationUseCase {
+export class CreateProjectUseCase {
   constructor(
     private userRepository: UserRepository,
-    private organizationRepository: OrganizationRepository
+    private projectRepository: ProjectRepository
   ) {}
 
   async execute({ name, userId }: InputDto): Promise<OutputDto> {
@@ -25,12 +25,12 @@ export class CreateOrganizationUseCase {
       throw new NotFoundError();
     }
 
-    const organization = Organization.create({ name, userId: user.id });
+    const project = Project.create({ name, userId: user.id });
 
-    await this.organizationRepository.create(organization);
+    await this.projectRepository.create(project);
 
     return {
-      id: organization.id.toString(),
+      id: project.id.toString(),
     };
   }
 }

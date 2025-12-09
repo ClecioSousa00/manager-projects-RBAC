@@ -1,17 +1,17 @@
 import { Entity } from "@/shared/entities/entity.ts";
 import type { UniqueEntityId } from "@/shared/entities/unique-entity-id.ts";
 
-export type OrganizationProps = {
+export type ProjectProps = {
   userId: UniqueEntityId;
   name: string;
   createdAt?: Date;
   updatedAt?: Date;
 };
 
-export class Organization extends Entity<OrganizationProps> {
-  static create(props: OrganizationProps, id?: UniqueEntityId) {
-    const organization = new Organization(props, id);
-    return organization;
+export class Project extends Entity<ProjectProps> {
+  static create(props: ProjectProps, id?: UniqueEntityId) {
+    const project = new Project(props, id);
+    return project;
   }
 
   get name() {
