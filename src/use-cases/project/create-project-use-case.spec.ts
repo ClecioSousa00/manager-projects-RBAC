@@ -1,3 +1,4 @@
+import { NotFoundError } from "@/shared/errors/not-found-error.ts";
 import { makeUser } from "@/test/factories/make-user.ts";
 import { InMemoryProjectRepository } from "@/test/in-memory-repositories/in-memory-project-repository.ts";
 import { InMemoryUserRepository } from "@/test/in-memory-repositories/in-memory-user-repository.ts";
@@ -13,7 +14,7 @@ describe("Create Project (Use Case)", () => {
     inMemoryProjectRepository = new InMemoryProjectRepository();
     createProjectUseCase = new CreateProjectUseCase(
       inMemoryUserRepository,
-      inMemoryProjectRepository
+      inMemoryProjectRepository,
     );
   });
 
@@ -31,7 +32,16 @@ describe("Create Project (Use Case)", () => {
     expect(inMemoryProjectRepository.items[0]).toEqual(
       expect.objectContaining({
         name: "project A",
-      })
+      }),
     );
+  });
+
+  it("Should not be able of create a project if not exists user", async () => {
+    await expect(() =>
+      createProjectUseCase.execute({
+        name: "project A",
+        userId: "fake-user-id",
+      }),
+    ).rejects.toBeInstanceOf(NotFoundError);
   });
 });
